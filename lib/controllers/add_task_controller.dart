@@ -12,7 +12,7 @@ class AddTaskController extends GetxController{
   bool get isLoading => _isLoading;
   TaskModel get taskModel => _taskModel;
 
-  Future<bool> insertData({required String title,required String taskDetails,required String taskProcess}) async {
+  Future<bool> addTask({required String title,required String taskDetails,required String taskProcess}) async {
     try {
       _isLoading = true;
       update();

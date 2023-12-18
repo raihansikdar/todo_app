@@ -14,23 +14,23 @@ class TaskModel{
   factory TaskModel.fromJson(Map<String,dynamic>json){
     return TaskModel(
       id: json['id'],
-      title: json['date'],
-      taskDetails: json['title'],
-      taskProcess: json['note'],
+      title: json['title'],
+      taskDetails: json['taskDetails'],
+      taskProcess: json['taskProcess'],
     );
   }
   Map<String,dynamic>toJson(){
     Map<String,dynamic> data = <String,dynamic>{};
     data['id'] = id;
-    data['date'] = title;
-    data['title'] = taskDetails;
-    data['note'] = taskProcess;
+    data['title'] = title;
+    data['taskDetails'] = taskDetails;
+    data['taskProcess'] = taskProcess;
 
     return data;
   }
 
   @override
   String toString() {
-    return 'NoteModel{id: $id, date: $title,title: $taskDetails, note: $taskProcess, }';
+    return 'NoteModel{id: $id, title: $title,taskDetails: $taskDetails, taskProcess: $taskProcess, }';
   }
 }

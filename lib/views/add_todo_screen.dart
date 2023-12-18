@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:get/get.dart';
+import 'package:todo_app/controllers/add_task_controller.dart';
 import 'package:todo_app/utils/color_pallete.dart';
 import 'package:todo_app/utils/custom_size_extension.dart';
 
@@ -114,13 +116,25 @@ TextEditingController _taskTEController = TextEditingController();
                   ],
                 ),
                 SizedBox(height: 16.rSp,),
-                ElevatedButton(
-                  onPressed: (){
-                    if(!_formKey.currentState!.validate()){
-                      return;
-                    }
-                  Fluttertoast.showToast(msg: "This is add");
-                  }, child: Text("Add task"),),
+                GetBuilder<AddTaskController>(
+                  builder: (_addTaskController) {
+                    return ElevatedButton(
+                      onPressed: (){
+                        if(!_formKey.currentState!.validate()){
+                          return;
+                        }
+                        _addTaskController.addTask(title: _titleTEController.text.trim(), taskDetails: _textDetailsTEController.text.trim(), taskProcess: _taskTEController.text.trim()).then((value) {
+                          if(value){
+                            Fluttertoast.showToast(msg: "Task has been added");
+                            Navigator.pop(context);
+                          }
+                        else{
+                            Fluttertoast.showToast(msg: "Task is not added",backgroundColor: AppColors.deleteIconColor);
+                          }
+                        });
+                      }, child: Text("Add task"),);
+                  }
+                ),
               ],
             ),
           ),
