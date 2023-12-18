@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/controllers/fetch_task_controller.dart';
+import 'package:todo_app/controllers/update_task_controller.dart';
 import 'package:todo_app/model/task_model.dart';
 import 'package:todo_app/utils/color_pallete.dart';
 import 'package:todo_app/utils/custom_size_extension.dart';
@@ -57,65 +58,15 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
             Expanded(
-              child: ListView.builder(
-                  itemCount: 15,
-                  itemBuilder: (context,index){
-                    return Stack(
-                      children: [
-                        Card(
-                            color: AppColors.cardColor,
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  const Row(
-                                    children: [
-                                      Text("Title"),
-                                      Spacer(),
-                                      Card(child: Padding(
-                                        padding: EdgeInsets.all(8.0),
-                                        child: Text("Complete"),
-                                      ),),
-                                    ],
-                                  ),
-                                  SizedBox(height: 16.rSp,),
-                                  const Text("Sub-Title"),
-                                ],
-                              ),
-                            )
-                        ),
-                        Positioned(
-                            bottom: 5,
-                            right: 5,
-                            child: FittedBox(
-                              child: SizedBox(
-                                width: 100,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Card(
-                                        elevation: 4,
-                                        child: Padding(
-                                          padding: EdgeInsets.all(4.rSp),
-                                          child: const Icon(Icons.edit),
-                                        )),
-                                    SizedBox(width: 10.rw,),
-                                    Card(
-                                        elevation: 4,
-                                        //color: Colors.amber,
-                                        child: Padding(
-                                          padding:  EdgeInsets.all(4.rSp),
-                                          child: const Icon(Icons.delete,),
-                                        )),
-                                    SizedBox(width: 10.rw,),
-                                  ],
-                                ),
-                              ),
-                            ))
-                      ],
-                    );
-                  }),
+              child: GetBuilder<FetchTaskController>(
+                builder: (_fetchTaskController) {
+                  return ListView.builder(
+                      itemCount: _fetchTaskController.completeTaskList.length,
+                      itemBuilder: (context,index){
+                        return CompleteListView(completeList: _fetchTaskController.completeTaskList[index],);
+                      });
+                }
+              ),
             ),
           ],
         )
@@ -130,6 +81,78 @@ class _HomePageState extends State<HomePage> {
           },child: const Icon(Icons.add),),
     );
   } 
+}
+
+class CompleteListView extends StatelessWidget {
+  const CompleteListView({
+    super.key, required this.completeList,
+  });
+final TaskModel completeList;
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Card(
+            color: AppColors.cardColor,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                   Row(
+                    children: [
+                      Text(completeList.title ?? ''),
+                      Spacer(),
+                      Card(
+                        color: AppColors.completeColor,
+                        child: Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(completeList.taskProcess ?? ''),
+                      ),),
+                    ],
+                  ),
+                  SizedBox(height: 16.rSp,),
+                   Text(completeList.taskDetails ?? ''),
+                ],
+              ),
+            )
+        ),
+        Positioned(
+            bottom: 5,
+            right: 5,
+            child: FittedBox(
+              child: SizedBox(
+                width: 100,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: (){
+                        Get.to(()=> AddTodoScreen(id: completeList.id,title: completeList.title,taskDetails: completeList.taskDetails,taskProcess: completeList.taskProcess,),arguments: 'update');
+                      },
+                      child: Card(
+                          elevation: 4,
+                          child: Padding(
+                            padding: EdgeInsets.all(4.rSp),
+                            child: const Icon(Icons.edit),
+                          )),
+                    ),
+                    SizedBox(width: 10.rw,),
+                    Card(
+                        elevation: 4,
+                        //color: Colors.amber,
+                        child: Padding(
+                          padding:  EdgeInsets.all(4.rSp),
+                          child: const Icon(Icons.delete,),
+                        )),
+                    SizedBox(width: 10.rw,),
+                  ],
+                ),
+              ),
+            ))
+      ],
+    );
+  }
 }
 
 class TodoListView extends StatelessWidget {
@@ -152,7 +175,9 @@ class TodoListView extends StatelessWidget {
                     children: [
                       Text(todoList.title ?? ''),
                       Spacer(),
-                      Card(child: Padding(
+                      Card(
+                        color: AppColors.todoColor,
+                        child: Padding(
                         padding: EdgeInsets.all(8.0),
                         child: Text(todoList.taskProcess ?? ''),
                       ),),
@@ -173,12 +198,17 @@ class TodoListView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Card(
-                        elevation: 4,
-                        child: Padding(
-                          padding: EdgeInsets.all(4.rSp),
-                          child: const Icon(Icons.edit),
-                        )),
+                    GestureDetector(
+                      onTap: (){
+                        Get.to(()=> AddTodoScreen(id: todoList.id,title: todoList.title,taskDetails: todoList.taskDetails,taskProcess: todoList.taskProcess,),arguments: 'update');
+                      },
+                      child: Card(
+                          elevation: 4,
+                          child: Padding(
+                            padding: EdgeInsets.all(4.rSp),
+                            child: const Icon(Icons.edit),
+                          )),
+                    ),
                     SizedBox(width: 10.rw,),
                     Card(
                         elevation: 4,

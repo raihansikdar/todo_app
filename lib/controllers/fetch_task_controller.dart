@@ -59,11 +59,11 @@ class FetchTaskController extends GetxController{
       update();
 
       final db = await DatabaseHelper().database;
-      final response = await db.query('taskTable', orderBy: "id DESC",where: 'taskProcess = ? ',whereArgs: ['Complete']);
+      final response = await db.query('taskTable', orderBy: "id DESC",where: 'taskProcess = ? ',whereArgs: ['Completed']);
 
       _isLoading = false;
       if (response.isNotEmpty) {
-        _taskList = response.map((notesData) => TaskModel.fromJson(notesData)).toList();
+        _completeTaskList = response.map((notesData) => TaskModel.fromJson(notesData)).toList();
         log(_taskList.toString());
         update();
         return true;

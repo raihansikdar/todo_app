@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/controllers/add_task_controller.dart';
+import 'package:todo_app/controllers/update_task_controller.dart';
 import 'package:todo_app/utils/color_pallete.dart';
 import 'package:todo_app/utils/custom_size_extension.dart';
 
 class AddTodoScreen extends StatefulWidget {
-   AddTodoScreen({Key? key}) : super(key: key);
+    final int? id;
+    final String? title;
+    final String? taskDetails;
+    final String? taskProcess;
+   AddTodoScreen({Key? key,this.id, this.title, this.taskDetails, this.taskProcess}) : super(key: key);
 
   @override
   State<AddTodoScreen> createState() => _AddTodoScreenState();
@@ -22,13 +27,28 @@ TextEditingController _taskTEController = TextEditingController();
 
  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
+ bool _argumentKey = false;
+@override
+  void initState() {
+    if(Get.arguments != null){
+      _argumentKey = true;
+      _titleTEController.text = widget.title!;
+      _textDetailsTEController.text = widget.taskDetails!;
+      _taskTEController.text = widget.taskProcess!;
+    }
+    print(widget.id);
+    print(widget.title);
+    print(widget.taskDetails);
+    print(widget.taskProcess);
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
         backgroundColor: AppColors.primaryColor,
-        title: const Text("Add Todo"),
+        title:  Text(_argumentKey ? 'Update Task' : "Add Task"),
         centerTitle: true,
       ),
       body: Padding(
@@ -39,7 +59,7 @@ TextEditingController _taskTEController = TextEditingController();
             child: Column(
               children: [
                 TextFormField(
-                  controller: _titleTEController,
+                  controller:  _titleTEController,
                 decoration: InputDecoration(
                     hintText: 'title',
                     hintStyle: TextStyle(color: AppColors.primaryColor)
@@ -116,25 +136,43 @@ TextEditingController _taskTEController = TextEditingController();
                   ],
                 ),
                 SizedBox(height: 16.rSp,),
-                GetBuilder<AddTaskController>(
-                  builder: (_addTaskController) {
-                    return ElevatedButton(
-                      onPressed: (){
-                        if(!_formKey.currentState!.validate()){
-                          return;
-                        }
-                        _addTaskController.addTask(title: _titleTEController.text.trim(), taskDetails: _textDetailsTEController.text.trim(), taskProcess: _taskTEController.text.trim()).then((value) {
-                          if(value){
-                            Fluttertoast.showToast(msg: "Task has been added");
-                            Navigator.pop(context);
-                          }
-                        else{
-                            Fluttertoast.showToast(msg: "Task is not added",backgroundColor: AppColors.deleteIconColor);
-                          }
-                        });
-                      }, child: Text("Add task"),);
-                  }
-                ),
+                // GetBuilder(
+                //   builder: (controller) {
+                //     if(_argumentKey){
+                //       return ElevatedButton(
+                //         onPressed: (){
+                //           if(!_formKey.currentState!.validate()){
+                //             return;
+                //           }
+                //           UpdateTaskController().updateTask(/*id: widget.id!,*/title: _titleTEController.text.trim(), taskDetails: _textDetailsTEController.text.trim(), taskProcess: _taskTEController.text.trim()).then((value) {
+                //             if(value){
+                //               Fluttertoast.showToast(msg: "Task has been updated");
+                //               Navigator.pop(context);
+                //             }
+                //             else{
+                //               Fluttertoast.showToast(msg: "Task is not updated",backgroundColor: AppColors.deleteIconColor);
+                //             }
+                //           });
+                //         }, child: Text("Update Task"));
+                //     }else{
+                //       return  ElevatedButton(
+                //         onPressed: (){
+                //           if(!_formKey.currentState!.validate()){
+                //             return;
+                //           }
+                //           AddTaskController().addTask(title: _titleTEController.text.trim(), taskDetails: _textDetailsTEController.text.trim(), taskProcess: _taskTEController.text.trim()).then((value) {
+                //             if(value){
+                //               Fluttertoast.showToast(msg: "Task has been added");
+                //               Navigator.pop(context);
+                //             }
+                //             else{
+                //               Fluttertoast.showToast(msg: "Task is not added",backgroundColor: AppColors.deleteIconColor);
+                //             }
+                //           });
+                //         }, child: Text("Add Task"),);
+                //     }
+                //   }
+                // ),
               ],
             ),
           ),

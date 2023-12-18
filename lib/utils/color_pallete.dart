@@ -18,4 +18,7 @@ class AppColors{
   static const Color cardColor = Colors.yellow;
   static const Color deleteIconColor = Colors.red;
   static  Color inputFieldBorderColor = Colors.grey.withOpacity(0.3);
+  static  Color completeColor = Colors.green;
+  static  Color todoColor = Colors.blue;
+  static  Color whiteColor = Colors.white;
 }
