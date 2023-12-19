@@ -30,11 +30,11 @@ class FetchTaskController extends GetxController{
       update();
 
       final db = await DatabaseHelper().database;
+      _taskList.clear();
       final response = await db.query('taskTable', orderBy: "id DESC",where: 'taskProcess = ? ',whereArgs: ['Todo']);
 
       _isLoading = false;
       if (response.isNotEmpty) {
-        _taskList.clear();
         _taskList = response.map((notesData) => TaskModel.fromJson(notesData)).toList();
         log("todo :${_taskList}");
         update();
@@ -60,13 +60,13 @@ class FetchTaskController extends GetxController{
       update();
 
       final db = await DatabaseHelper().database;
+      _completeTaskList.clear();
       final response = await db.query('taskTable', orderBy: "id DESC",where: 'taskProcess = ? ',whereArgs: ['Completed']);
 
       _isLoading = false;
       if (response.isNotEmpty) {
-        _completeTaskList.clear();
         _completeTaskList = response.map((notesData) => TaskModel.fromJson(notesData)).toList();
-        log("Complete :${_completeTaskList}");
+        log("Completed :${_completeTaskList}");
         update();
         return true;
       } else {

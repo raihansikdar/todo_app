@@ -4,6 +4,7 @@ import 'package:todo_app/application/state_holder_binder.dart';
 import 'package:todo_app/utils/components/color_pallete.dart';
 import 'package:todo_app/utils/components/custom_size_extension.dart';
 import 'package:todo_app/views/home_page.dart';
+import 'package:todo_app/views/splash_screen.dart';
 
 class TodoApp extends StatelessWidget {
   const TodoApp({super.key});
@@ -37,7 +38,7 @@ class TodoApp extends StatelessWidget {
 
         ),
       ),
-      home: const HomePage(),
+      home: const SplashScreen(),
     );
   }
 }

@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:todo_app/controllers/fetch_task_controller.dart';
 import 'package:todo_app/utils/components/color_pallete.dart';
 import 'package:todo_app/utils/components/custom_size_extension.dart';
-import 'package:todo_app/utils/widgets/complete_list_view_widget.dart';
 import 'package:todo_app/utils/widgets/text_component.dart';
 import 'package:todo_app/utils/widgets/todo_list_view_widget.dart';
 

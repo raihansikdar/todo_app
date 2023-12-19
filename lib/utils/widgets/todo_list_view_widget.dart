@@ -47,8 +47,7 @@ class TodoListViewWidget extends StatelessWidget {
                   SizedBox(height: 12.rSp,),
                   Padding(
                     padding: EdgeInsets.only(left: 8.rw),
-                    child: AppReusableComponent.cardSubTitleText(
-                        "Task Description: ${data.taskDetails ?? ''}",
+                    child: AppReusableComponent.cardSubTitleText("Task Description: ${data.taskDetails ?? ''}",
                     ),
                   ),
                   SizedBox(height: 16.rSp,),
