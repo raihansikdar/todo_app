@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/controllers/delete_task_controller.dart';
 import 'package:todo_app/controllers/fetch_task_controller.dart';
-import 'package:todo_app/model/task_model.dart';
 import 'package:todo_app/utils/components/AppToastMessage.dart';
 import 'package:todo_app/utils/components/color_pallete.dart';
 import 'package:todo_app/utils/components/custom_size_extension.dart';
@@ -77,7 +76,6 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: GetBuilder<FetchTaskController>(
                   builder: (_fetchTaskController) {
-                    print(" Complete length ${_fetchTaskController.completeTaskList.length}");
                     if(_fetchTaskController.isLoading){
                       return const Center(child: CircularProgressIndicator());
                     }
@@ -120,7 +118,6 @@ class _HomePageState extends State<HomePage> {
             Expanded(
               child: GetBuilder<FetchTaskController>(
                   builder: (_fetchTaskController) {
-                    print(" Task length ${_fetchTaskController.taskList.length}");
                     if(_fetchTaskController.isLoading){
                       return const Center(child: CircularProgressIndicator());
                     }
@@ -157,7 +154,7 @@ class _HomePageState extends State<HomePage> {
           onPressed: (){
           Get.to(()=> const AddAndUpdateTodoScreen());
           },child: const Icon(Icons.add),),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   } 
 }
