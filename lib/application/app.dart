@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:todo_app/application/state_holder_binder.dart';
-import 'package:todo_app/utils/color_pallete.dart';
-import 'package:todo_app/utils/custom_size_extension.dart';
+import 'package:todo_app/utils/components/color_pallete.dart';
+import 'package:todo_app/utils/components/custom_size_extension.dart';
 import 'package:todo_app/views/home_page.dart';
 
 class TodoApp extends StatelessWidget {

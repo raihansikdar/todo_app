@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:todo_app/controllers/delete_task_controller.dart';
 import 'package:todo_app/controllers/fetch_task_controller.dart';
-import 'package:todo_app/controllers/update_task_controller.dart';
 import 'package:todo_app/model/task_model.dart';
-import 'package:todo_app/utils/color_pallete.dart';
-import 'package:todo_app/utils/custom_size_extension.dart';
-import 'package:todo_app/views/add_todo_screen.dart';
+import 'package:todo_app/utils/components/AppToastMessage.dart';
+import 'package:todo_app/utils/components/color_pallete.dart';
+import 'package:todo_app/utils/components/custom_size_extension.dart';
+import 'package:todo_app/utils/components/reusable_component.dart';
+import 'package:todo_app/utils/widgets/complete_list_view_widget.dart';
+import 'package:todo_app/utils/widgets/text_component.dart';
+import 'package:todo_app/utils/widgets/todo_list_view_widget.dart';
+import 'package:todo_app/views/add_and_update_todo_screen.dart';
+import 'package:todo_app/views/details_task_screen.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -24,206 +30,140 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         elevation: 2,
         backgroundColor: AppColors.primaryColor,
-        title: const Text("Todo App"),
+        title: TextComponent(
+            text: "Todo App",
+            maxLines: 1,
+            textAlign: TextAlign.start,
+            overflow: TextOverflow.ellipsis,
+            color: AppColors.secondaryColor,
+            fontSize: 24.rSp,
+            fontWeight: FontWeight.w600,
+            ),
         centerTitle: true,
+        actions: [
+          GestureDetector(
+              onTap: (){
+                Get.find<FetchTaskController>().taskList.isEmpty && Get.find<FetchTaskController>().completeTaskList.isEmpty ?  AppToastMessage.failedToastMessage('There is no task exists.') :
+                Get.find<DeleteTaskController>().clearData().then((value) {
+                  if(value){
+                    AppToastMessage.successToastMessage('All Tasks have been deleted.');
+                    Get.find<FetchTaskController>().fetchTodoTask();
+                    Get.find<FetchTaskController>().fetchCompleteTask();
+                  }else{
+                    AppToastMessage.failedToastMessage('Tasks not deleted.');
+                  }
+                });
+              },
+              child: Icon(Icons.delete_sweep,size: 30.rSp,color: AppColors.secondaryColor,)),
+          SizedBox(width: 16.rw),
+        ],
       ),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.symmetric(horizontal: 16.rSp,vertical: 6.rSp),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Row(
+            Row(
               children: [
-                Text("Todo"),
-                Spacer(),
-                Text("see"),
+                AppReusableComponent.titleText("Completed List"),
+                const Spacer(),
+                GestureDetector(
+                  onTap: (){
+                    Get.to(()=>DetailsTaskScreen(),arguments: true);
+                  },
+                  child:   AppReusableComponent.customChip("See All"),
+                )
               ],
             ),
             Expanded(
               child: GetBuilder<FetchTaskController>(
-                builder: (_fetchTaskController) {
-                  return ListView.builder(
-                      itemCount: _fetchTaskController.taskList.length,
-                      itemBuilder: (context,index){
-                        return TodoListView(todoList: _fetchTaskController.taskList[index],);
-                      });
-                }
+                  builder: (_fetchTaskController) {
+                    print(" Complete length ${_fetchTaskController.completeTaskList.length}");
+                    if(_fetchTaskController.isLoading){
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    else if(_fetchTaskController.completeTaskList.isEmpty){
+                      return  Center(
+                        child: TextComponent(
+                          text: "Empty",
+                          maxLines: 1,
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.ellipsis,
+                          color: AppColors.primaryColor,
+                          fontSize: 24.rSp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                        itemCount: _fetchTaskController.completeTaskList.length,
+                        itemBuilder: (context,index){
+                          return TodoListViewWidget(data: _fetchTaskController.completeTaskList[index],);
+                        });
+                  }
               ),
             ),
-            const Row(
+
+
+             const Divider(thickness: 5,color: AppColors.primaryColor,),
+            Row(
               children: [
-                Text("complete"),
-                Spacer(),
-                Text("see"),
+                AppReusableComponent.titleText("Todo List"),
+                const Spacer(),
+                GestureDetector(
+                  onTap: (){
+                    Get.to(()=>DetailsTaskScreen());
+                  },
+                  child:   AppReusableComponent.customChip("See All"),
+                )
               ],
             ),
             Expanded(
               child: GetBuilder<FetchTaskController>(
-                builder: (_fetchTaskController) {
-                  return ListView.builder(
-                      itemCount: _fetchTaskController.completeTaskList.length,
-                      itemBuilder: (context,index){
-                        return CompleteListView(completeList: _fetchTaskController.completeTaskList[index],);
-                      });
-                }
+                  builder: (_fetchTaskController) {
+                    print(" Task length ${_fetchTaskController.taskList.length}");
+                    if(_fetchTaskController.isLoading){
+                      return const Center(child: CircularProgressIndicator());
+                    }
+                    else if(_fetchTaskController.taskList.isEmpty){
+                      return  Center(
+                        child: TextComponent(
+                          text: "Empty",
+                          maxLines: 1,
+                          textAlign: TextAlign.start,
+                          overflow: TextOverflow.ellipsis,
+                          color: AppColors.primaryColor,
+                          fontSize: 24.rSp,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      );
+                    }
+                    return ListView.builder(
+                        itemCount: _fetchTaskController.taskList.length,
+                        itemBuilder: (context,index){
+                          return TodoListViewWidget(data: _fetchTaskController.taskList[index],);
+                        });
+                  }
               ),
             ),
           ],
         )
       ),
       floatingActionButton: FloatingActionButton(
-        backgroundColor: AppColors.cardColor,
+        backgroundColor: AppColors.secondaryColor,
+
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(100),
         ),
           onPressed: (){
-          Get.to(()=> AddTodoScreen());
+          Get.to(()=> const AddAndUpdateTodoScreen());
           },child: const Icon(Icons.add),),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   } 
 }
 
-class CompleteListView extends StatelessWidget {
-  const CompleteListView({
-    super.key, required this.completeList,
-  });
-final TaskModel completeList;
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Card(
-            color: AppColors.cardColor,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Row(
-                    children: [
-                      Text(completeList.title ?? ''),
-                      Spacer(),
-                      Card(
-                        color: AppColors.completeColor,
-                        child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(completeList.taskProcess ?? ''),
-                      ),),
-                    ],
-                  ),
-                  SizedBox(height: 16.rSp,),
-                   Text(completeList.taskDetails ?? ''),
-                ],
-              ),
-            )
-        ),
-        Positioned(
-            bottom: 5,
-            right: 5,
-            child: FittedBox(
-              child: SizedBox(
-                width: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        Get.to(()=> AddTodoScreen(id: completeList.id,title: completeList.title,taskDetails: completeList.taskDetails,taskProcess: completeList.taskProcess,),arguments: 'update');
-                      },
-                      child: Card(
-                          elevation: 4,
-                          child: Padding(
-                            padding: EdgeInsets.all(4.rSp),
-                            child: const Icon(Icons.edit),
-                          )),
-                    ),
-                    SizedBox(width: 10.rw,),
-                    Card(
-                        elevation: 4,
-                        //color: Colors.amber,
-                        child: Padding(
-                          padding:  EdgeInsets.all(4.rSp),
-                          child: const Icon(Icons.delete,),
-                        )),
-                    SizedBox(width: 10.rw,),
-                  ],
-                ),
-              ),
-            ))
-      ],
-    );
-  }
-}
 
-class TodoListView extends StatelessWidget {
-  const TodoListView({
-    super.key, required this.todoList,
-  });
- final TaskModel todoList;
-  @override
-  Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Card(
-            color: AppColors.cardColor,
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                   Row(
-                    children: [
-                      Text(todoList.title ?? ''),
-                      Spacer(),
-                      Card(
-                        color: AppColors.todoColor,
-                        child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Text(todoList.taskProcess ?? ''),
-                      ),),
-                    ],
-                  ),
-                  SizedBox(height: 16.rSp,),
-                   Text(todoList.taskDetails ?? ''),
-                ],
-              ),
-            )
-        ),
-        Positioned(
-            bottom: 5,
-            right: 5,
-            child: FittedBox(
-              child: SizedBox(
-                width: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: (){
-                        Get.to(()=> AddTodoScreen(id: todoList.id,title: todoList.title,taskDetails: todoList.taskDetails,taskProcess: todoList.taskProcess,),arguments: 'update');
-                      },
-                      child: Card(
-                          elevation: 4,
-                          child: Padding(
-                            padding: EdgeInsets.all(4.rSp),
-                            child: const Icon(Icons.edit),
-                          )),
-                    ),
-                    SizedBox(width: 10.rw,),
-                    Card(
-                        elevation: 4,
-                        //color: Colors.amber,
-                        child: Padding(
-                          padding:  EdgeInsets.all(4.rSp),
-                          child: const Icon(Icons.delete,),
-                        )),
-                    SizedBox(width: 10.rw,),
-                  ],
-                ),
-              ),
-            ))
-      ],
-    );
-  }
-}
+
+
 

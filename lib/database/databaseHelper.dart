@@ -34,7 +34,7 @@ class DatabaseHelper{
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
-    CREATE TABLE taskTable(id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,taskDetails Text, taskProcess TEXT);
+    CREATE TABLE taskTable(id INTEGER PRIMARY KEY AUTOINCREMENT,title TEXT,dueDate TEXT, taskDetails Text, taskProcess TEXT);
   ''');
 
   }

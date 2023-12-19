@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:todo_app/database/databaseHelper.dart';
 import 'package:todo_app/model/task_model.dart';
-import 'package:todo_app/utils/constants.dart';
+import 'package:todo_app/utils/components/AppToastMessage.dart';
 
 class AddTaskController extends GetxController{
   bool _isLoading = false;
@@ -12,11 +12,11 @@ class AddTaskController extends GetxController{
   bool get isLoading => _isLoading;
   TaskModel get taskModel => _taskModel;
 
-  Future<bool> addTask({required String title,required String taskDetails,required String taskProcess}) async {
+  Future<bool> addTask({required String title,required String dueDate,required String taskDetails,required String taskProcess}) async {
     try {
       _isLoading = true;
       update();
-      _taskModel = TaskModel(title: title, taskDetails: taskDetails, taskProcess: taskProcess);
+      _taskModel = TaskModel(title: title,dueDate: dueDate ,taskDetails: taskDetails, taskProcess: taskProcess);
 
       final db = await DatabaseHelper().database;
       final response = await db.insert('taskTable', _taskModel.toJson());

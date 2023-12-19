@@ -15,10 +15,13 @@ class AppColors{
     900:const Color.fromRGBO(4,131,184, 1),
   };
   static const Color primaryColor = Color(0xFF07ADAE);
-  static const Color cardColor = Colors.yellow;
+  static const Color secondaryColor = Colors.yellow;
+  static const Color cardColor = Color.fromARGB(255, 56, 39, 39);
+  static const Color titleTextColor = Colors.black;
   static const Color deleteIconColor = Colors.red;
   static  Color inputFieldBorderColor = Colors.grey.withOpacity(0.3);
   static  Color completeColor = Colors.green;
   static  Color todoColor = Colors.blue;
   static  Color whiteColor = Colors.white;
+  static  Color successFulToastColor = Colors.black54;
 }

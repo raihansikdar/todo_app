@@ -34,8 +34,9 @@ class FetchTaskController extends GetxController{
 
       _isLoading = false;
       if (response.isNotEmpty) {
+        _taskList.clear();
         _taskList = response.map((notesData) => TaskModel.fromJson(notesData)).toList();
-        log(_taskList.toString());
+        log("todo :${_taskList}");
         update();
         return true;
       } else {
@@ -63,8 +64,9 @@ class FetchTaskController extends GetxController{
 
       _isLoading = false;
       if (response.isNotEmpty) {
+        _completeTaskList.clear();
         _completeTaskList = response.map((notesData) => TaskModel.fromJson(notesData)).toList();
-        log(_taskList.toString());
+        log("Complete :${_completeTaskList}");
         update();
         return true;
       } else {
