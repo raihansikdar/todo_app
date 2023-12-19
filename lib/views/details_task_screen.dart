@@ -7,7 +7,7 @@ import 'package:todo_app/utils/widgets/text_component.dart';
 import 'package:todo_app/utils/widgets/todo_list_view_widget.dart';
 
 class DetailsTaskScreen extends StatefulWidget {
-   DetailsTaskScreen({Key? key}) : super(key: key);
+   const DetailsTaskScreen({Key? key}) : super(key: key);
 
   @override
   State<DetailsTaskScreen> createState() => _DetailsTaskScreenState();
@@ -43,9 +43,8 @@ class _DetailsTaskScreenState extends State<DetailsTaskScreen> {
         padding:  EdgeInsets.all(16.rSp),
         child: argumentKey ?  GetBuilder<FetchTaskController>(
             builder: (_fetchTaskController) {
-              print(" Complete length ${_fetchTaskController.completeTaskList.length}");
               if(_fetchTaskController.isLoading){
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
               else if(_fetchTaskController.completeTaskList.isEmpty){
                 return  Center(
@@ -68,9 +67,8 @@ class _DetailsTaskScreenState extends State<DetailsTaskScreen> {
             }
         ) : GetBuilder<FetchTaskController>(
             builder: (_fetchTaskController) {
-              print(" Task length ${_fetchTaskController.taskList.length}");
               if(_fetchTaskController.isLoading){
-                return CircularProgressIndicator();
+                return const CircularProgressIndicator();
               }
               else if(_fetchTaskController.taskList.isEmpty){
                 return  Center(

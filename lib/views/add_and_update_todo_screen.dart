@@ -6,7 +6,7 @@ import 'package:todo_app/controllers/add_task_controller.dart';
 import 'package:todo_app/controllers/delete_task_controller.dart';
 import 'package:todo_app/controllers/fetch_task_controller.dart';
 import 'package:todo_app/controllers/update_task_controller.dart';
-import 'package:todo_app/utils/components/AppToastMessage.dart';
+import 'package:todo_app/utils/components/app_toast_message.dart';
 import 'package:todo_app/utils/components/color_pallete.dart';
 import 'package:todo_app/utils/components/custom_size_extension.dart';
 import 'package:todo_app/utils/widgets/text_component.dart';

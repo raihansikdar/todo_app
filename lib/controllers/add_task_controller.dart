@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:get/get.dart';
 import 'package:todo_app/database/databaseHelper.dart';
 import 'package:todo_app/model/task_model.dart';
-import 'package:todo_app/utils/components/AppToastMessage.dart';
+import 'package:todo_app/utils/components/app_toast_message.dart';
 
 class AddTaskController extends GetxController{
   bool _isLoading = false;
