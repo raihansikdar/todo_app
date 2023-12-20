@@ -91,14 +91,21 @@ class _AddAndUpdateTodoScreenState extends State<AddAndUpdateTodoScreen> {
                 SizedBox(height: 16.rSp,),
                 TextFormField(
                   controller: _dueDateTEController,
-                 // enabled: false,
+                  readOnly: true,
                   style: const TextStyle(color: AppColors.titleTextColor),
                   decoration: InputDecoration(
                       hintText: 'Due Date',
                       hintStyle: TextStyle(color: AppColors.primaryColor.withOpacity(0.5)),
                       suffixIcon: GestureDetector(onTap: (){
                         _selectDate();
-                      }, child: Icon(Icons.calendar_month,size: 30.rSp,)),
+                      }, child: Card(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(100)
+                        ),
+                          child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Icon(Icons.calendar_month,size: 30.rSp,),
+                      ))),
                   ),
                   validator: (String? taskProgress){
                     if(taskProgress?.isEmpty ?? true){

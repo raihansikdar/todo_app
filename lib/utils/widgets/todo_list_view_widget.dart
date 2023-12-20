@@ -78,12 +78,7 @@ class TodoListViewWidget extends StatelessWidget {
                     SizedBox(width: 8.rw,),
                     GestureDetector(
                       onTap: (){
-                        Get.find<DeleteTaskController>().deleteTask(id: data.id!).then((value) {
-                          if(value){
-                            Get.find<FetchTaskController>().fetchTodoTask();
-                            AppToastMessage.successToastMessage("Task has been deleted");
-                          }
-                        });
+                       deleteAlertDialog(context);
 
                       },
                       child: Card(
@@ -101,5 +96,39 @@ class TodoListViewWidget extends StatelessWidget {
             ))
       ],
     );
+  }
+
+
+  void deleteAlertDialog(BuildContext context){
+    showDialog(context: context, builder: (context){
+
+      return AlertDialog(
+        alignment: Alignment.center,
+        backgroundColor: const Color.fromARGB(255, 56, 39, 39),
+        titlePadding: EdgeInsets.only(top: 16.rSp,bottom: 8.rSp,left: 16.rSp,right: 16.rSp),
+        title: Text("Delete Alert",textAlign: TextAlign.center,style: TextStyle(fontSize: 20.rSp,letterSpacing: 0.6,fontWeight: FontWeight.w600,color: Colors.white,),),
+        contentPadding: EdgeInsets.symmetric(vertical:8.rSp,horizontal: 16.rSp),
+        content: Text("Are you sure you want to delete task?",textAlign: TextAlign.center,style: TextStyle(fontSize: 14.rSp,fontWeight: FontWeight.w400,color: Colors.yellow),),
+        actions: [
+          ElevatedButton(onPressed: (){
+            Navigator.pop(context);
+          }, child: const Text("Cancel")),
+          SizedBox(width: 16.rw,),
+          ElevatedButton(onPressed: (){
+            Get.find<DeleteTaskController>().deleteTask(id: data.id!).then((value) {
+              if(value){
+                Get.find<FetchTaskController>().fetchTodoTask();
+                AppToastMessage.successToastMessage("Task has been deleted");
+              }else{
+                AppToastMessage.failedToastMessage("Task not deleted");
+              }
+            });
+            Navigator.pop(context);
+          }, child: const Text("Delete")),
+          SizedBox(width: 2.rw,),
+        ],
+      );
+
+    });
   }
 }

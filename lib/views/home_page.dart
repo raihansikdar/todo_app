@@ -59,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                 const Spacer(),
                 GestureDetector(
                   onTap: (){
-                    Get.to(()=>DetailsTaskScreen(),arguments: true);
+                    Get.to(()=>const DetailsTaskScreen(),arguments: true);
                   },
                   child:   AppReusableComponent.customChip("See All"),
                 )
@@ -101,7 +101,7 @@ class _HomePageState extends State<HomePage> {
                 const Spacer(),
                 GestureDetector(
                   onTap: (){
-                    Get.to(()=>DetailsTaskScreen());
+                    Get.to(()=>const DetailsTaskScreen());
                   },
                   child:   AppReusableComponent.customChip("See All"),
                 )
@@ -156,11 +156,12 @@ class _HomePageState extends State<HomePage> {
 
       return AlertDialog(
         backgroundColor: const Color.fromARGB(255, 56, 39, 39),
-        titlePadding: const EdgeInsets.only(top: 16,bottom: 8,left: 16,right: 16),
-        title: const Text("Confirm Delete",style: TextStyle(fontSize: 20.0,letterSpacing: 0.6,fontWeight: FontWeight.w600,color: Colors.white),),
-        contentPadding: const EdgeInsets.symmetric(vertical:8,horizontal: 16.0),
-        content: const Text("Are you sure you want to delete all the task?",style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.w400,color: Colors.yellow),),
+        titlePadding: EdgeInsets.only(top: 16.rSp,bottom: 8.rSp,left: 16.rSp,right: 16.rSp),
+        title: Text("Confirm Delete",textAlign: TextAlign.center,style: TextStyle(fontSize: 20.rSp,letterSpacing: 0.6,fontWeight: FontWeight.w600,color: Colors.white),),
+        contentPadding: EdgeInsets.symmetric(vertical:8.rSp,horizontal: 16.rSp),
+        content: Text("Are you sure you want to delete all the task?",textAlign: TextAlign.center,style: TextStyle(fontSize: 14.rSp,fontWeight: FontWeight.w400,color: Colors.yellow),),
         actions: [
+          SizedBox(width: 20.rw,),
           ElevatedButton(onPressed: (){
             Navigator.pop(context);
           }, child: const Text("Cancel")),
@@ -176,6 +177,7 @@ class _HomePageState extends State<HomePage> {
             });
             Navigator.pop(context);
           }, child: const Text("Delete")),
+          SizedBox(width: 6.rw,),
         ],
       );
 
