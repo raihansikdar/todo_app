@@ -61,6 +61,11 @@ class _AddAndUpdateTodoScreenState extends State<AddAndUpdateTodoScreen> {
           fontWeight: FontWeight.w600,
         ),
         centerTitle: true,
+        leading: GestureDetector(
+            onTap: (){
+              Navigator.pop(context);
+            },
+            child: const Icon(Icons.arrow_back_ios_new,color: AppColors.secondaryColor,))
       ),
       body: Padding(
         padding: EdgeInsets.all(16.rSp),
@@ -71,7 +76,7 @@ class _AddAndUpdateTodoScreenState extends State<AddAndUpdateTodoScreen> {
               children: [
                 TextFormField(
                   controller:  _titleTEController,
-                  style: TextStyle(color: AppColors.titleTextColor),
+                  style: const TextStyle(color: AppColors.titleTextColor),
                 decoration: InputDecoration(
                     hintText: 'Title',
                     hintStyle: TextStyle(color: AppColors.inputFieldBorderColor.withOpacity(0.7))
@@ -84,39 +89,28 @@ class _AddAndUpdateTodoScreenState extends State<AddAndUpdateTodoScreen> {
                   },
                 ),
                 SizedBox(height: 16.rSp,),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      child: TextFormField(
-                        controller: _dueDateTEController,
-                        enabled: false,
-                        style: const TextStyle(color: AppColors.titleTextColor),
-                        decoration: InputDecoration(
-                            hintText: 'Due Date',
-                            hintStyle: TextStyle(color: AppColors.primaryColor.withOpacity(0.5)),
-                            //contentPadding: EdgeInsets.symmetric(vertical: 4,horizontal: 8.0)
-                        ),
-                        validator: (String? taskProgress){
-                          if(taskProgress?.isEmpty ?? true){
-                            return 'This field is mandatory';
-                          }
-                          return null;
-                        },
-                      ),
-
-                    ),
-                    SizedBox(width: 8.rSp,),
-                    IconButton(onPressed: (){
-                      _selectDate();
-                    }, icon: Icon(Icons.calendar_month,size: 30.rSp,)),
-                  ],
+                TextFormField(
+                  controller: _dueDateTEController,
+                 // enabled: false,
+                  style: const TextStyle(color: AppColors.titleTextColor),
+                  decoration: InputDecoration(
+                      hintText: 'Due Date',
+                      hintStyle: TextStyle(color: AppColors.primaryColor.withOpacity(0.5)),
+                      suffixIcon: GestureDetector(onTap: (){
+                        _selectDate();
+                      }, child: Icon(Icons.calendar_month,size: 30.rSp,)),
+                  ),
+                  validator: (String? taskProgress){
+                    if(taskProgress?.isEmpty ?? true){
+                      return 'This field is mandatory';
+                    }
+                    return null;
+                  },
                 ),
                 SizedBox(height: 16.rSp,),
                 TextFormField(
                   controller: _textDetailsTEController,
-                  style: TextStyle(color: AppColors.titleTextColor),
+                  style: const TextStyle(color: AppColors.titleTextColor),
                   maxLines: 5,
                   decoration: InputDecoration(
                       hintText: 'Task Details',
@@ -138,12 +132,12 @@ class _AddAndUpdateTodoScreenState extends State<AddAndUpdateTodoScreen> {
                     Expanded(
                       child: TextFormField(
                         controller: _taskTEController,
-                        style: TextStyle(color: AppColors.titleTextColor),
+                        style: const TextStyle(color: AppColors.titleTextColor),
                         enabled: false,
                         decoration:  InputDecoration(
                             hintText: 'Select Task Progress',
                             hintStyle: TextStyle(color: AppColors.primaryColor.withOpacity(0.5)),
-                          contentPadding: EdgeInsets.symmetric(vertical: 4,horizontal: 8.0)
+                          contentPadding: const EdgeInsets.symmetric(vertical: 4,horizontal: 8.0)
                         ),
                         validator: (String? taskProgress){
                           if(taskProgress?.isEmpty ?? true){
@@ -157,6 +151,7 @@ class _AddAndUpdateTodoScreenState extends State<AddAndUpdateTodoScreen> {
                     SizedBox(width: 8.rSp,),
                    _argumentKey ? DropdownButton(
                      dropdownColor: AppColors.secondaryColor,
+                     borderRadius:BorderRadius.circular(16.rSp),
                      value: dropDownValue,
                      icon: const Padding(
                        padding: EdgeInsets.only(left: 8.0),
@@ -214,7 +209,7 @@ class _AddAndUpdateTodoScreenState extends State<AddAndUpdateTodoScreen> {
                                 _textDetailsTEController.clear();
                                 _taskTEController.clear();
                                 _dueDateTEController.clear();
-                                Future.delayed(const Duration(seconds: 2)).then((value) {
+                                Future.delayed(const Duration(seconds: 1)).then((value) {
                                   Get.find<FetchTaskController>().fetchCompleteTask();
                                   Get.find<FetchTaskController>().fetchTodoTask();
                                   Navigator.pop(context);
@@ -240,7 +235,7 @@ class _AddAndUpdateTodoScreenState extends State<AddAndUpdateTodoScreen> {
                               _textDetailsTEController.clear();
                               _taskTEController.clear();
                               _dueDateTEController.clear();
-                             Future.delayed(const Duration(seconds: 2)).then((value) {
+                             Future.delayed(const Duration(seconds: 1)).then((value) {
                                Get.find<FetchTaskController>().fetchTodoTask();
                                Get.find<FetchTaskController>().fetchCompleteTask();
                                Navigator.pop(context);

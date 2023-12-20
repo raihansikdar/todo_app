@@ -38,6 +38,11 @@ class _DetailsTaskScreenState extends State<DetailsTaskScreen> {
         fontWeight: FontWeight.w600,
       ),
         centerTitle: true,
+          leading: GestureDetector(
+              onTap: (){
+                Navigator.pop(context);
+              },
+              child: const Icon(Icons.arrow_back_ios_new,color: AppColors.secondaryColor,))
       ),
       body:Padding(
         padding:  EdgeInsets.all(16.rSp),

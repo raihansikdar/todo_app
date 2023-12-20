@@ -17,12 +17,12 @@ class TodoApp extends StatelessWidget {
 
     return GetMaterialApp(
       initialBinding: StateHolderBinder(),
-      title: 'Flutter Demo',
+      title: 'Todo App',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        //primarySwatch: MaterialColor(AppColors.primaryColor.value, AppColors().color),
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        //useMaterial3: true,
+        primarySwatch: MaterialColor(AppColors.primaryColor.value, AppColors().color),
         inputDecorationTheme: InputDecorationTheme(
+          contentPadding: EdgeInsets.symmetric(vertical: 8.rh,horizontal: 16.rw),
           border: OutlineInputBorder(
             borderSide: BorderSide(color: AppColors.inputFieldBorderColor,width: 2),
           ),
