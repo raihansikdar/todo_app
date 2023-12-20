@@ -22,7 +22,6 @@ As the creator of Todo App, I assumed the following core responsibilities:
   <img src="https://github.com/raihansikdar/todo_app/blob/main/screenshots/1.jpg" width="200" />
   <img src="https://github.com/raihansikdar/todo_app/blob/main/screenshots/2.jpg" width="200" />
  <img src="https://github.com/raihansikdar/todo_app/blob/main/screenshots/3.jpg" width="200" />
- <img src="https://github.com/raihansikdar/todo_app/blob/main/screenshots/22.jpg" width="200" />
  <img src="https://github.com/raihansikdar/todo_app/blob/main/screenshots/4.jpg" width="200" />
  <img src="https://github.com/raihansikdar/todo_app/blob/main/screenshots/5.jpg" width="200" />
  <img src="https://github.com/raihansikdar/todo_app/blob/main/screenshots/6.jpg" width="200" />
