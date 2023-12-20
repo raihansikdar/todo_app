@@ -16,6 +16,14 @@ As the creator of Todo App, I assumed the following core responsibilities:
 - When Task add,update and delete. Show Toast.
 
 - Delete all Task at once
+## Used Packages
+- `get: ^4.6.6`: Getx StateManagement
+- `sqflite: ^2.3.0` : Database
+- `path: ^1.8.3`
+- `path_provider: ^2.1.1`
+- `fluttertoast: ^8.2.4`
+- `intl: ^0.18.1`
+
 
 ## todo_app UI
 <div style="display: flex; flex-wrap: wrap;">
