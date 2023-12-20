@@ -41,19 +41,11 @@ class _HomePageState extends State<HomePage> {
         actions: [
           GestureDetector(
               onTap: (){
-                Get.find<FetchTaskController>().taskList.isEmpty && Get.find<FetchTaskController>().completeTaskList.isEmpty ?  AppToastMessage.failedToastMessage('There is no task exists.') :
-                Get.find<DeleteTaskController>().clearData().then((value) {
-                  if(value){
-                    AppToastMessage.successToastMessage('All Tasks have been deleted.');
-                    Get.find<FetchTaskController>().fetchTodoTask();
-                    Get.find<FetchTaskController>().fetchCompleteTask();
-                  }else{
-                    AppToastMessage.failedToastMessage('Tasks not deleted.');
-                  }
-                });
+                Get.find<FetchTaskController>().taskList.isEmpty && Get.find<FetchTaskController>().completeTaskList.isEmpty ?
+                AppToastMessage.failedToastMessage('There is no task exists.') : customAlertDialog();
               },
               child: Icon(Icons.delete_sweep,size: 30.rSp,color: AppColors.secondaryColor,)),
-          SizedBox(width: 16.rw),
+             SizedBox(width: 16.rw),
         ],
       ),
       body: Padding(
@@ -102,7 +94,7 @@ class _HomePageState extends State<HomePage> {
             ),
 
 
-             const Divider(thickness: 5,color: AppColors.primaryColor,),
+             const Divider(thickness: 3,color: AppColors.primaryColor,),
             Row(
               children: [
                 AppReusableComponent.titleText("Todo List"),
@@ -156,7 +148,39 @@ class _HomePageState extends State<HomePage> {
           },child: const Icon(Icons.add),),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
-  } 
+  }
+
+
+  void customAlertDialog(){
+    showDialog(context: context, builder: (context){
+
+      return AlertDialog(
+        backgroundColor: const Color.fromARGB(255, 56, 39, 39),
+        titlePadding: const EdgeInsets.only(top: 16,bottom: 8,left: 16,right: 16),
+        title: const Text("Confirm Delete",style: TextStyle(fontSize: 20.0,letterSpacing: 0.6,fontWeight: FontWeight.w600,color: Colors.white),),
+        contentPadding: const EdgeInsets.symmetric(vertical:8,horizontal: 16.0),
+        content: const Text("Are you sure you want to delete all the task?",style: TextStyle(fontSize: 14.0,fontWeight: FontWeight.w400,color: Colors.yellow),),
+        actions: [
+          ElevatedButton(onPressed: (){
+            Navigator.pop(context);
+          }, child: const Text("Cancel")),
+          ElevatedButton(onPressed: (){
+            Get.find<DeleteTaskController>().clearData().then((value) {
+              if(value){
+                AppToastMessage.successToastMessage('All Tasks have been deleted.');
+                Get.find<FetchTaskController>().fetchTodoTask();
+                Get.find<FetchTaskController>().fetchCompleteTask();
+              }else{
+                AppToastMessage.failedToastMessage('Tasks not deleted.');
+              }
+            });
+            Navigator.pop(context);
+          }, child: const Text("Delete")),
+        ],
+      );
+
+    });
+  }
 }
 
 
