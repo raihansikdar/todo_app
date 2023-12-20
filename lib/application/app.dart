@@ -24,16 +24,16 @@ class TodoApp extends StatelessWidget {
         inputDecorationTheme: InputDecorationTheme(
           contentPadding: EdgeInsets.symmetric(vertical: 8.rh,horizontal: 16.rw),
           border: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.inputFieldBorderColor,width: 2),
+            borderSide: BorderSide(color: AppColors.inputFieldBorderColor,width: 1),
           ),
             enabledBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.inputFieldBorderColor,width: 2),
+              borderSide: BorderSide(color: AppColors.inputFieldBorderColor,width: 1),
             ),
             focusedBorder: OutlineInputBorder(
-              borderSide: BorderSide(color: AppColors.inputFieldBorderColor,width: 2),
+              borderSide: BorderSide(color: AppColors.inputFieldBorderColor,width: 1),
             ),
           errorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: AppColors.inputFieldBorderColor,width: 2),
+            borderSide: BorderSide(color: AppColors.inputFieldBorderColor,width: 1),
           ),
 
         ),

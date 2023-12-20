@@ -174,6 +174,7 @@ class _AddAndUpdateTodoScreenState extends State<AddAndUpdateTodoScreen> {
                      },
                    ) :  DropdownButton(
                       dropdownColor: AppColors.secondaryColor,
+                      borderRadius:BorderRadius.circular(16.rSp),
                       value: dropDownValue,
                       icon: const Padding(
                         padding: EdgeInsets.only(left: 8.0),
@@ -267,6 +268,7 @@ class _AddAndUpdateTodoScreenState extends State<AddAndUpdateTodoScreen> {
      if (_picker != null) {
        String formattedDate = DateFormat("dd/MMM/yyyy").format(_picker);
        _dueDateTEController.text = formattedDate.toString();
+
        setState(() {});
      }
    }
