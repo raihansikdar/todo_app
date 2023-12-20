@@ -1,16 +1,19 @@
 # todo_app
 
-A new Flutter project.
 
-## Getting Started
+## todo_app UI
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+<div style="display: flex; flex-wrap: wrap;">
+  <img src="https://github.com/raihansikdar/todo_app/blob/main/screenshots/1.jpg" width="200" />
+  <img src="https://github.com/raihansikdar/crafty_bay/blob/main/screenshots/2.jpg" width="200" />
+ <img src="https://github.com/raihansikdar/crafty_bay/blob/main/screenshots/3.jpg" width="200" />
+ <img src="https://github.com/raihansikdar/crafty_bay/blob/main/screenshots/22.jpg" width="200" />
+ <img src="https://github.com/raihansikdar/crafty_bay/blob/main/screenshots/4.jpg" width="200" />
+ <img src="https://github.com/raihansikdar/crafty_bay/blob/main/screenshots/5.jpg" width="200" />
+ <img src="https://github.com/raihansikdar/crafty_bay/blob/main/screenshots/6.jpg" width="200" />
+ <img src="https://github.com/raihansikdar/crafty_bay/blob/main/screenshots/7.jpg" width="200" />
+ <img src="https://github.com/raihansikdar/crafty_bay/blob/main/screenshots/8.jpg" width="200" />
+ <img src="https://github.com/raihansikdar/crafty_bay/blob/main/screenshots/9.jpg" width="200" />
+</div>
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
